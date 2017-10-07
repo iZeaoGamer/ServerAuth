@@ -323,7 +323,7 @@ class ServerAuth extends PluginBase {
     /*** API Functions ***/
     
     /** @var string API_VERSION ServerAuth API version */
-    const API_VERSION = "1.1.1";
+    const API_VERSION = "3.0.0-ALPHA8";
     
     /**
      * Get ServerAuth version
