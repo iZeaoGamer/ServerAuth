@@ -27,7 +27,7 @@ class ServerAuthUnregisterEvent extends PluginEvent implements Cancellable {
 	/**
 	 * @param Player $player
 	 */
-	public function __construct($player){
+	public function __construct(Player $player){
 		$this->player = $player;
 	}
 
@@ -36,7 +36,7 @@ class ServerAuthUnregisterEvent extends PluginEvent implements Cancellable {
 	 *
 	 * @return Player|OfflinePlayer|string
 	 */
-	public function getPlayer(){
+	public function getPlayer() : Player(){
 		return $this->player;
 	}
 	
