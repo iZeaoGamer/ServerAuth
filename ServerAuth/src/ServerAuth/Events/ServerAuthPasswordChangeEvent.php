@@ -50,7 +50,7 @@ class ServerAuthPasswordChangeEvent extends PluginEvent implements Cancellable {
 	 * 
 	 * @return $password
 	 */
-	public function getPassword() : $password{
+	public function getPassword(){
 		return $this->password;
 	}
 	
