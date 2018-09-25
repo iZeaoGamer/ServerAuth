@@ -119,7 +119,7 @@ class ServerAuth extends PluginBase {
     	return self::$object;
     }
     
-    public function onLoad(){
+    public function onLoad() : void{
     	if(!(self::$object instanceof ServerAuth)){
     		self::$object = $this;
     	}
@@ -133,7 +133,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return string The translated message
      */
-    public function translateColors($symbol, $message) : string{
+    public function translateColors(char $symbol, string $message) : string{
     	$message = str_replace($symbol."0", TextFormat::BLACK, $message);
     	$message = str_replace($symbol."1", TextFormat::DARK_BLUE, $message);
     	$message = str_replace($symbol."2", TextFormat::DARK_GREEN, $message);
@@ -169,7 +169,7 @@ class ServerAuth extends PluginBase {
      *
      * @return string the message
      */
-    public function replaceArrays($message, $array) : string{
+    public function replaceArrays(string $message, array $array) : string{
     	foreach($array as $key => $value){
     		$message = str_replace("{" . strtoupper($key) . "}", $value, $message);
     	}
@@ -186,7 +186,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return array true on success or false on error + error details
      */
-    public function checkDatabase($host, $port, $username, $password){
+    public function checkDatabase(string $host, string $port, string $username, string $password) : array{
     	$status = array();
     	$db = @new \mysqli($host, $username, $password, null, $port);
     	if($db->connect_error){
@@ -282,7 +282,7 @@ class ServerAuth extends PluginBase {
     	return $count;
     }
     
-    public function onEnable(){
+    public function onEnable() : void{
 	    @mkdir($this->getDataFolder());
 	    @mkdir($this->getDataFolder() . "users/");
 	    @mkdir($this->getDataFolder() . "languages/");
@@ -348,7 +348,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return mysqli|bool
      */
-    public function getDatabase(){
+    public function getDatabase() : bool{
     	if($this->database instanceof \mysqli){
     		return $this->database;
     	}else{
@@ -415,7 +415,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return string message
      */
-    public function getCancelledMessage(){
+    public function getCancelledMessage() : string{
     	return $this->canc_message;
     }
     
@@ -426,7 +426,7 @@ class ServerAuth extends PluginBase {
      *
      * @return array|int the array of player data on SUCCESS, otherwise the current error
      */
-    public function getPlayerData(string $player){
+    public function getPlayerData(string $player) : array{
     	if($this->isPlayerRegistered($player)){
     		if($this->getDataProvider()){
     			//Check MySQL connection
@@ -506,7 +506,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return bool|int true or false on SUCCESS, otherwise the current error
      */
-    public function isPlayerRegistered(string $player){
+    public function isPlayerRegistered(string $player) : bool{
     	if($this->getDataProvider()){
     		//Check MySQL connection
     		if($this->getDatabase() && $this->getDatabase()->ping()){
@@ -569,7 +569,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return int|bool true on SUCCESS, otherwise the current error
      */
-    public function registerPlayer(Player $player, string $password){
+    public function registerPlayer(Player $player, string $password) : bool{
     	$cfg = $this->getConfig()->getAll();
     	if($this->isPlayerRegistered($player->getName())){
     		return ServerAuth::ERR_USER_ALREADY_REGISTERED;
@@ -681,7 +681,7 @@ class ServerAuth extends PluginBase {
 	 * 
 	 * @return int|bool true on SUCCESS or false if the player is not registered, otherwise the current error
 	 */
-    public function unregisterPlayer($player){
+    public function unregisterPlayer(Player $player) : bool{
     	$pname = $player;
     	if($player instanceof Player || $player instanceof OfflinePlayer){
     		$pname = $player->getName();
@@ -749,7 +749,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return int|bool true on SUCCESS, otherwise the current error
      */
-    public function authenticatePlayer(Player $player, string $password, bool $hash = true){
+    public function authenticatePlayer(Player $player, string $password, bool $hash = true) : bool{
     	if($hash){
     		$password = hash($this->getPasswordHash(), $password);
     	}
@@ -853,7 +853,7 @@ class ServerAuth extends PluginBase {
      * 
      * @return int|bool true on SUCCESS, otherwise the current error
      */
-    public function deauthenticatePlayer(Player $player){
+    public function deauthenticatePlayer(Player $player) : bool{
     	if($this->isPlayerAuthenticated($player)){
     		//Reset cancelled message
     		$this->canc_message = $this->chlang["operation-cancelled"];
@@ -879,7 +879,7 @@ class ServerAuth extends PluginBase {
 	 * 
 	 * @return int|bool true on SUCCESS or false if the player is not registered, otherwise the current error
 	 */
-    public function changePlayerPassword($player, string $new_password){
+    public function changePlayerPassword(Player $player, string $new_password) : bool{
     	if($player instanceof Player || $player instanceof OfflinePlayer){
 	    	$cfg = $this->getConfig()->getAll();
 	    	if($this->isPlayerRegistered($player->getName())){
