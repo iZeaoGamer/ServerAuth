@@ -11,20 +11,19 @@
 
 namespace ServerAuth\Tasks;
 
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 use pocketmine\Server;
 
 use ServerAuth\ServerAuth;
 
-class MySQLTask extends PluginTask {
+class MySQLTask extends Task {
 	
     public function __construct(ServerAuth $plugin){
-    	parent::__construct($plugin);
         $this->plugin = $plugin;
         $this->plugin = $this->getOwner();
     }
     
-    public function onRun(int $tick){
+    public function onRun(int $tick) : void{
     	$cfg = $this->plugin->getConfig()->getAll();
     	//Check MySQL
     	if($cfg["use-mysql"] == true){
