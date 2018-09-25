@@ -31,7 +31,7 @@ class ServerAuthPasswordChangeEvent extends PluginEvent implements Cancellable {
 	 * @param Player $player
 	 * @param $password
 	 */
-	public function __construct($player, $password){
+	public function __construct(Player $player, $password){
 		$this->player = $player;
 		$this->password = $password;
 	}
@@ -41,7 +41,7 @@ class ServerAuthPasswordChangeEvent extends PluginEvent implements Cancellable {
 	 *
 	 * @return Player|OfflinePlayer
 	 */
-	public function getPlayer(){
+	public function getPlayer() : Player{
 		return $this->player;
 	}
 	
@@ -50,7 +50,7 @@ class ServerAuthPasswordChangeEvent extends PluginEvent implements Cancellable {
 	 * 
 	 * @return $password
 	 */
-	public function getPassword(){
+	public function getPassword() : $password{
 		return $this->password;
 	}
 	
